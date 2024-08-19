@@ -64,14 +64,14 @@ const Navbar = () => {
                 Contact{" "}
               </NavLink>
             </li>
-            <li className="hover:text-[#FF5D68] w-full duration-300 cursor-pointer md:hidden">
+            {/* <li className="hover:text-[#FF5D68] w-full duration-300 cursor-pointer md:hidden">
              <NavLink to={"/cart"} onClick={handleMenu}> Cart </NavLink>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
       <div className="text-4xl font-bold">FRICA</div>
-      <div className="relative hidden md:flex cursor-pointer">
+      <div className="relative cursor-pointer">
         <NavLink to={"/cart"}>
         <svg
           xmlns="http://www.w3.org/2000/svg"

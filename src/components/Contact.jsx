@@ -4,6 +4,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
+
 const schema = z.object({
   name: z.string().nonempty("Name is Required"),
   email: z
@@ -19,7 +20,7 @@ const Contact = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    reset
+    reset,
   } = useForm({
     resolver: zodResolver(schema),
   });
@@ -33,8 +34,8 @@ const Contact = () => {
         message: data.message,
         timestamp: new Date(),
       });
-      console.log(data);
-      reset();
+      console.log(data); // Log the data if needed for debugging
+      reset(); // Clear the form fields
     } catch (error) {
       console.log("Error", error);
     }
@@ -68,7 +69,7 @@ const Contact = () => {
         )}
 
         <input
-          {...register("phone")} // Register the phone input properly
+          {...register("phone")}
           type="tel"
           className="outline-none border-black border-b-[1px] placeholder:text-gray-500 placeholder:text-lg"
           placeholder="Phone Number"

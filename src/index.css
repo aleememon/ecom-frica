@@ -4,5 +4,9 @@
 @tailwind utilities;
 
 .text-red-500 {
-    color: #ef4444 !important; /* Ensures that the red color is applied */
+  color: #ef4444 !important; /* Ensures that the red color is applied */
+}
+
+.text-red-500 {
+  color: #ef4444 !important; /* Ensures that the red color is applied */
 }

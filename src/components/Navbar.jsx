@@ -39,7 +39,7 @@ const Navbar = () => {
             onClick={handleMenu}
             className="text-white text-xl text-end md:m-7 m-6 hover:text-[#FF5D68] cursor-pointer"
           >
-            <i className="fa-solid fa-x md:mr-10"></i>
+            <i className="fa-solid fa-x md:mr-10 mt-10 md:mt-0 mr-1"></i>
           </div>
           <ul className="text-white flex flex-col font-normal text-center space-y-6 text-2xl">
             <li className="hover:text-[#FF5D68] w-full duration-300 cursor-pointer">

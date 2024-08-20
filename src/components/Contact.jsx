@@ -1,45 +1,91 @@
 import React from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const schema = z.object({
+  name: z.string().nonempty("Name is Required"),
+  email: z
+    .string()
+    .email("Invalid Email Address")
+    .nonempty("Email is Required"),
+  phone: z.string().regex(/^\d{4}\s\d{7}$/, "Phone number must be 11 digits"),
+  message: z.string().nonempty("Message is Required"),
+});
 
 const Contact = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
+
+  const onSubmit = async (data) => {
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      console.log(data);
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
+
   return (
-    <div className="flex h-screen justify-center items-center flex-col ">
-      <h1 className="font-bold text-4xl uppercase mb-10">contact us</h1>
-      <form className="flex flex-col gap-10 w-[300px] sm:w-[400px] md:w-[500px]">
+    <div className="flex h-screen mt-36 md:mt-32 justify-center items-center flex-col ">
+      <h1 className="font-bold text-4xl uppercase mb-10">Contact Us</h1>
+      <form
+        onSubmit={handleSubmit(onSubmit)} 
+        className="flex flex-col gap-10 w-[300px] sm:w-[400px] md:w-[500px]"
+      >
         <input
+          {...register("name")}
           type="text"
-          className="outline-none  border-black border-b-[1px] placeholder:text-gray-500 placeholder:text-lg"
+          className="outline-none border-black border-b-[1px] placeholder:text-gray-500 placeholder:text-lg"
           placeholder="Name"
-          name="name"
-          required
         />
+        {errors.name && (
+          <div className="text-red-500">{errors.name.message}</div>
+        )}
+
         <input
-          type="email" // Use type="email" for email validation
-          className="outline-none  border-black border-b-[1px] placeholder:text-gray-500 placeholder:text-lg"
+          {...register("email")}
+          type="email"
+          className="outline-none border-black border-b-[1px] placeholder:text-gray-500 placeholder:text-lg"
           placeholder="Email"
-          name="email"
-          required
         />
+        {errors.email && (
+          <div className="text-red-500">{errors.email.message}</div>
+        )}
+
         <input
-          type="tel" // Use type="tel" for phone numbers
-          className="outline-none  border-black border-b-[1px] placeholder:text-gray-500 placeholder:text-lg"
+          {...register("phone")} // Register the phone input properly
+          type="tel"
+          className="outline-none border-black border-b-[1px] placeholder:text-gray-500 placeholder:text-lg"
           placeholder="Phone Number"
-          required
-          pattern="[0-9]{10}" // This pattern enforces a 10-digit phone number
         />
+        {errors.phone && (
+          <div className="text-red-500">{errors.phone.message}</div>
+        )}
+
         <textarea
-          name="message"
-          type="text"
+          {...register("message")}
           rows="2"
           placeholder="Message"
-          className="outline-none  border-black border-b-[1px] placeholder:text-gray-500 placeholder:text-lg"
-          required
+          className="outline-none border-black border-b-[1px] placeholder:text-gray-500 placeholder:text-lg"
         />
+        {errors.message && (
+          <div className="text-red-500">{errors.message.message}</div>
+        )}
+
         <div className="flex justify-center items-center">
-          <input
+          <button
+            disabled={isSubmitting}
             type="submit"
-            className="px-5 py-2.5 text-2xl w-36 rounded-full cursor-pointer hover:bg-black duration-500 bg-red-400 text-white"
-            value="Send"
-          />
+            className="px-5 py-2.5 md:text-2xl md:w-52 rounded-full cursor-pointer hover:bg-black duration-500 bg-red-400 text-white"
+          >
+            {isSubmitting ? "Submitting..." : "Send"}
+          </button>
         </div>
       </form>
     </div>

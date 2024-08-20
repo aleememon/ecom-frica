@@ -2,3 +2,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.text-red-500 {
+    color: #ef4444 !important; /* Ensures that the red color is applied */
+}

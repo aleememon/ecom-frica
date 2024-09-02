@@ -51,6 +51,7 @@ const Cart = () => {
                   <h1 className="font-bold text-lg md:text-xl">{item.name}</h1>
                   <div className="mt-3 md:mt-0 flex flex-row items-center">
                     <button
+                    disabled={item.qty === 1}
                       onClick={() => handleDecrementItem(item.id)}
                       className="md:px-2 px-1 text-white font-semibold text-center rounded-md bg-red-500"
                     >
